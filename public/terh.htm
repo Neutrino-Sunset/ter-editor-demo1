@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TE Edit Control - HTML Version</title>
+  <link href="/css/style.css" type="text/css" rel="stylesheet"/>
+</head>
+
+<body onload="OnDocResize();" onresize="OnDocResize();">
+  <h4 style="margin-bottom:0px;">TE Edit Control, HTML version</h4>
+
+  <div> <input type="checkbox" id="SizeToBrowser" value=false onclick="OnDocResize();"> Size to Brower</div>
+
+  <!-- Event handler functions -->
+  <script>
+     function PreprocessEvent(obj,ActionType,ActionId) {
+        //console.log("Preprocess, object id: ",obj.cvs.id,"type",ActionType,"id: ",ActionId);
+     }
+
+     function Hypertext(obj,HText,HCode) {
+        var url=HCode;  // strip any surrounding quotes
+        var len=url.length;
+        if (len>2 && url.charAt(0)=='"' && url.charAt(len-1)=='"') url=url.substr(1,len-2);
+
+        if (url.indexOf("http://")==0)  window.open(url);
+        else if (url.indexOf("www.")==0) window.open("http://"+url);
+        else alert("Hypertext: "+HText+"\nCode/url: "+HCode);
+     }
+  </script>
+
+  <script>
+    var tej=null;
+    function ControlCreated(te) {
+       tej=te;  // save in a global varible for easy access
+
+       // NOTE: ALL EDITOR CONSTANT, SUCH AS ID_PASTE, MUST BE PREFIXED WITH A tc. PREFIX
+
+       // sample code for modifying the toobar.
+       //tej.TerHideToolbarIcon(tc.TLB_HELP,true);  // remove this icon, need to call TerRecreateToolbar
+
+       //tej.TerAddToolbarIcon(0,0,tc.ID_SUPSCR_ON,"images/icon1.jpg","superscript");    // no need to call TerRecreateToolbar when adding a custom icon, and toolbar is automatically recreated when the picture loads from the sever
+       //tej.TerAddToolbarIcon(0,0,tc.ID_SUBSCR_ON,"images/icon2.jpg","subscript");      // no need to call TerRecreateToolbar when adding a custom icon, and toolbar is automatically recreated when the picture loads from the sever
+
+       //tej.TerSetToolbarLimitPercent(100);  // set the percent width at which the toolbar icons will automatically be pushed into toolbar option menu, defatlt=80, set 100 to disable this feature
+       //AddOptionMenu();  // example of adding an option menu (hamburger menu) to the toolbar at the right side
+
+       //tej.TerRecreateToolbar(true);   // this does not need to be called if all we did was added custom icons with image
+
+       // toggle on full diplay of the page and the shadeded area around the page
+       tej.TerCommand(tc.ID_SHOW_PAGE_LAYOUT);
+
+       // Example of catching events
+       // The event handler function such as PreprocessEvent and Hypertext events are defined below
+       tej.TerSetEvent("Preprocess",PreprocessEvent);  // an example of catching the preprocess event
+       tej.TerSetEvent("Hypertext",Hypertext);
+
+    }
+
+      // an example of showing an option menu (hamurger or a 3-dot menu) on the right side of the toolbar
+      function AddOptionMenu() {
+
+          // an example of populating the toolbar option menu using TerAddToolbarMenuItem(/*Object*/menu,/*int*/id,/*String*/desc)
+          // menu: menu or submenu to add the current item. pass null for the main toolbar menu
+          // id:  command id such as ID_CUT,
+          //      special id value, pass 0 for separator line,
+          //                            -1 to add a subfolder
+          //                            -2 to clear the toolbar menu
+          //
+          // Return:  menu or submenu object
+
+          tej.TerAddToolbarMenuItem(null,tc.ID_CUT,"Cut");
+          tej.TerAddToolbarMenuItem(null,tc.ID_COPY,"Copy");
+          tej.TerAddToolbarMenuItem(null,tc.ID_PASTE,"Paste");
+
+          tej.TerAddToolbarMenuItem(null,0,"separator line");   // separator line
+
+          var submenu=tej.TerAddToolbarMenuItem(null,-1,"Styles");
+          tej.TerAddToolbarMenuItem(submenu,tc.ID_BOLD_ON,"Bold");
+          tej.TerAddToolbarMenuItem(submenu,tc.ID_ITALIC_ON,"Italic");
+          tej.TerAddToolbarMenuItem(submenu,tc.ID_ULINE_ON,"Underline");
+          tej.TerAddToolbarMenuItem(null,0,"separator line");   // separator line
+
+          tej.TerAddToolbarMenuItem(null,tc.ID_SAVE,"Save");
+
+          tej.TerRecreateToolbar(true);   // this does not need to be called if all we did was added custom icons with image
+      }
+
+  </script>
+
+  <!-- Load the main editor javascript file -->
+  <!-- This should be done before the canvas tag -->
+  <script src="terh28.js"></script>
+
+  <script src="spelltime5.js"></script>   <!-- A separate license for SpellTime must be purchased to use the spell-checker feature -->
+
+
+  <canvas id="ter1" width="750" tabindex=0 height="800" style="position:absolute; left:50px; top:75px; border: 1px solid;"
+
+    data-word-wrap = "true"
+    data-page-mode = "true"
+    data-print-view-mode = "true"
+    data-fitted-view = "false"
+    data-show-menu = "true"
+    data-show-status-bar = "true"
+    data-show-ruler = "true"
+    data-show-vert-ruler = "true"
+    data-show-tool-bar = "true"
+    data-border-margin = "true"
+    data-rtf-output = "true"
+    data-read-only-mode = "false"
+    data-vert-scroll-bar = "true"
+    data-horz-scroll-bar = "true"
+
+  >
+    Sorry, this browser does not support HTML 5.
+  </canvas>
+
+
+  <!-- Create the editor session within the canvas element created above.
+       This should be done after the loading the script (above) and the canvas element (above);
+  -->
+  <script>
+     var te1=TerInit('ter1');    // Create the editor session
+     ControlCreated(te1);
+  </script>
+
+  <!-- End of the Demo code -->
+
+  <div id="footer" width="750" height="250" style="position:absolute; left:50px; top:925px; border: none;">
+     <table>
+       <tr>
+        <td>
+          <h4>DOWNLOAD EVALUATION COPY:</h4>
+          <script src="../js/download_eval.js"></script>
+          <script type="text/javascript" src="../js/common.js"></script>
+          <p class="downloadeval" onclick="DownloadEval('http://www.subsystems.com/tehe.zip')"><strong>TE Edit Control for Javascript/HTML (ZIP FILE)</strong></p>
+        </td>
+        <td style="width:50px;"></td>
+        <td>
+          <h4><u>Product Manuals:</u></h4>
+          <p><a href="http://www.subsystems.com/hlp_tej.PDF" target="_blank" ><strong>TE Edit Control for HTML/Javascript (PDF FILE)</strong></a></p>
+        </td>
+       <tr>
+         <td colspan=3>
+           <br/>
+           <p> TE Edit Control for HTML/Javascript is a state-of-the-art canvas based Javascript solution. The product does not rely on <br/>
+           browser edit control or any other third party control.<br/>
+           No server side support is needed other than to access the rich text.<br/>
+           <br/>
+           The control works within the secure environment of the browser, thus needing no code certificate to authenticate.  The control <br/>
+           works on all major browsers.<br/>
+           <br/>
+           The control can be inserted into your web page using ASP.NET or by directly inserting the 'canvas' <br/>
+           tag into your web page.<br/>
+           <p> To see how simple it is to implement, simply checkout the source for this page. </p>
+
+           <hr/>
+           <p style="color: #ff00ff;" > If you are looking for TE Edit Control for .NET, ASP/ASP.NET, Win32, Win64, WPF, ActiveX, MFC, <br/>
+               VB, Delphi, PowerBuilder, Visual FoxPro, Java or Applet, please press the browser back key to return to <br/>
+               the editor control main page.</p>
+           <hr/>
+         <td>
+       <tr>
+     </table>
+  </div>
+
+  <script>
+
+     // Here is an example of changing the Editor position/size as the parent element (body for this example) changes.
+
+     function OnDocResize() {
+        var ScrollBarWidth=20;  // approximate
+        var BrowserWidth=window.innerWidth-ScrollBarWidth;
+        var BrowserHeight=window.innerHeight-ScrollBarWidth;
+        var MargTop=75;  // leave some space on the top for the heading
+        var MargBot=200;  // leave some space on the bottom for the footer
+        var MargLeft=50;
+        var MargRight=50;
+
+        var resize=document.getElementById("SizeToBrowser");
+        if (!resize.checked) return;
+
+        var EditorWidth=BrowserWidth-MargLeft-MargRight;
+        var EditorHeight=BrowserHeight-MargTop-MargBot;
+
+        // set editor width/height
+        var ter1=document.getElementById("ter1");
+
+        tej.TerApplySize(EditorWidth,EditorHeight);
+
+        // set ter1 position
+        ter1.style.left=MargLeft.toString()+"px";
+        ter1.style.top=MargTop.toString()+"px";
+
+        // must call the TerRepaint method if the canvas position or size is changed so the editor adjusts to the new position/size
+        tej.TerRepaint(true);   // now tell the editor to redraw redraw
+
+        // set the footer position
+        footer=document.getElementById("footer");
+        footer.style.left=MargLeft.toString()+"px";
+        footer.style.top=(MargTop+EditorHeight+15).toString()+"px";
+
+     }
+  </script>
+
+
+</body>
+</html>
