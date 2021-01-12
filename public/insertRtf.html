@@ -3,7 +3,7 @@
 
 <head>
    <title>Insert Rtf</title>
-   <link rel="stylesheet" href="styles.css">
+   <link rel="stylesheet" href="/assets/styles.css">
    <style>
       * {
          box-sizing: border-box;
@@ -81,6 +81,7 @@ Heading1    Heading2\par
          </textarea>
          <button type="button" onclick="insertRtf(example2)">Insert Data</button>
          <button type="button" onclick="clearData()">Clear Data</button>
+         <button type="button" onclick="updateOutput()">Update Data</button>
       </div>
       
    </div>
@@ -99,13 +100,15 @@ Heading1    Heading2\par
       <div id="editorData" class="editor-data"></div>
    </div>
    
-   <script src="terh28.js"></script>
+   <script src="/assets/terh28.js"></script>
    
    <script>
       let example1 = document.getElementById('example1');
       let example2 = document.getElementById('example2');
       let editorContainer = document.getElementById('editorContainer');
       let editorData = document.getElementById('editorData');
+      
+      window.tg.ResourceUrl = '/assets';
       let editor = TerInit('editorCanvas');
       editor.TerCommand(tc.ID_SHOW_PAGE_LAYOUT);
       
