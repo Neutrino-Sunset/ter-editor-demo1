@@ -1,0 +1,41 @@
+* {
+   box-sizing: border-box;
+}
+.left-column {
+   float: left;
+   width: 50%;
+   padding: 0px 10px 0px 0px;
+}
+.right-column {
+   float: left;
+   width: 50%;
+   position: relative;
+}
+.example-container {
+   padding: 0;
+   margin: 0px 0px 10px 0px;
+}
+.example-input {
+   width: 100%;
+   height: 120px;
+   background-color: lightgray;
+}
+.editor-container {
+   width: 100%;
+   height: 350px;
+   margin: 0px 0px 10px 0px;
+   padding: 0;
+   border: 1px solid darkgrey;
+}
+.editor-data {
+   display: block;
+   width: 100%;
+   height: 350px;
+   overflow: auto;
+   border: 1px solid darkgrey;
+   background-color: lightgray;
+}
+
+p {
+   margin: 0px 0px 6px 0px;
+}
