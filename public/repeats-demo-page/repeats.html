@@ -7,48 +7,50 @@
    <link rel="stylesheet" href="repeats.css">
    <script src="/assets/terh28.js"></script>
    <script src="repeats.js" defer></script>
+   <script src="/assets/live.js"></script>
 </head>
-
 <body>
-   <div class="header-container">
+   <header class="header-container">
       <h1>Repeats Demo</h1>
       <div class="home-link-container">
          <a href="/">Home</a>
       </div>
-   </div>
+   </header>
 
-   <div class="left-column">
-      
-      <div class="example-container">
-         <p>Example 1: Ignore group not inserted.</p>
-         <textarea id="example1" value="example1rtf" class="example-input"></textarea>
-         <button type="button" onclick="insertRtf(example1)">Insert Data</button>
-         <button type="button" onclick="clearData()">Clear Data</button>
-      </div>
-      
-      <div class="example-container">
-         <p>Example 1: Hidden text group scope not honoured.</p>
-         <textarea id="example2" value="example2rtf" class="example-input"></textarea>
-         <button type="button" onclick="insertRtf(example2)">Insert Data</button>
-         <button type="button" onclick="clearData()">Clear Data</button>
-         <button type="button" onclick="updateOutput()">Update Data</button>
-      </div>
-      
-   </div>
-
-   <div class="right-column">
-      
-      <div id="editorContainer" class="editor-container">
-         <canvas id="editorCanvas" class="editor-canvas" tabindex=-1
-            data-word-wrap="true" data-page-mode="true" data-print-view-mode="true" data-fitted-view="false"
-            data-show-menu="true" data-show-status-bar="true" data-show-ruler="true" data-show-vert-ruler="true"
-            data-show-tool-bar="true" data-border-margin="true" data-rtf-output="true" data-read-only-mode="false"
-            data-vert-scroll-bar="true" data-horz-scroll-bar="true" data-high-res="true">
-         </canvas>
+   <main>
+      <div class="left-column">
+         
+         <div class="example-container">
+            <p>Example 1: Ignore group not inserted.</p>
+            <textarea id="example1" value="example1rtf"></textarea>
+            <button type="button" onclick="insertRtf(example1)">Insert Data</button>
+            <button type="button" onclick="clearData()">Clear Data</button>
+         </div>
+         
+         <div class="example-container">
+            <p>Example 1: Hidden text group scope not honoured.</p>
+            <textarea id="example2" value="example2rtf"></textarea>
+            <button type="button" onclick="insertRtf(example2)">Insert Data</button>
+            <button type="button" onclick="clearData()">Clear Data</button>
+            <button type="button" onclick="updateOutput()">Update Data</button>
+         </div>
+         
       </div>
 
-      <div id="editorData" class="editor-data"></div>
-   </div>
+      <div class="right-column">
+         
+         <div id="editorContainer" class="editor-container">
+            <canvas id="editorCanvas" class="editor-canvas" tabindex=-1
+               data-word-wrap="true" data-page-mode="true" data-print-view-mode="true" data-fitted-view="false"
+               data-show-menu="true" data-show-status-bar="true" data-show-ruler="true" data-show-vert-ruler="true"
+               data-show-tool-bar="true" data-border-margin="true" data-rtf-output="true" data-read-only-mode="false"
+               data-vert-scroll-bar="true" data-horz-scroll-bar="true" data-high-res="true">
+            </canvas>
+         </div>
+
+         <div id="editorData" class="editor-data"></div>
+      </div>
+   </main>
 
 </body>
 

@@ -26,7 +26,8 @@ window.onresize = function() {
       editor.TerApplySize(editorContainerWidth, editorContainerHeight);
       editor.TerRepaint(true);
    }
-}();
+};
+window.onresize();
 
 function updateOutput() {
    editorData.innerText = editor.GetData();

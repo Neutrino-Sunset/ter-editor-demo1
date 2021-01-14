@@ -9,13 +9,15 @@
 .right-column {
    float: left;
    width: 50%;
-   position: relative;
 }
 .example-container {
    padding: 0;
    margin: 0px 0px 10px 0px;
 }
-.example-input {
+.example-container p {
+   margin: 0px 0px 6px 0px;
+}
+.example-container textarea {
    width: 100%;
    height: 120px;
    background-color: lightgray;
@@ -36,6 +38,3 @@
    background-color: lightgray;
 }
 
-p {
-   margin: 0px 0px 6px 0px;
-}

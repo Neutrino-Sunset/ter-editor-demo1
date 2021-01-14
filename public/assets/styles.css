@@ -3,19 +3,18 @@ body {
    background-color: grey;
 }
 
-h1 {
-   text-align: center;
-   margin: 5px;
-}
 .header-container {
    position: relative;
+}
+.header-container h1 {
+   text-align: center;
+   margin: 5px;
 }
 .home-link-container {
    position: absolute;
    top: 0px;
    width: 100%;
    height: 100%;
-   text-align: right;
    display: flex;
    align-items: center;
    justify-content: flex-end;
