@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Right Aligned In Header</title>
+      <script src="/assets/live.js"></script>
+      <style>
+         html {
+            height: 100%
+         }
+         body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            background-color: pink;
+         }
+         header {
+            position: relative;
+            background-color: blue;
+            text-align: center;
+         }
+         header h1 {
+            margin: 5px 0px;
+         }
+         .home-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+         }
+         .home-link {
+            margin: 5px;
+         }
+         main {
+            display: flex;
+            flex: 1 1 auto;
+            background-color: green;
+         }
+         .column {
+            flex: 1 1 auto;
+            border: 1px solid darkred;
+            margin: 1px 2px 2px 1px;
+         }
+      </style>
+   </head>
+   <body>
+      <header>
+         <h1>Header</h1>
+         <div class="home-container">
+            <a class="home-link" href="/">Home</a>
+         </div>
+      </header>
+
+      <main>
+         <div class="column">
+            Left Column
+         </div>
+         <div class="column">
+            Right Column
+         </div>
+      </main>
+   </body>
+</html>

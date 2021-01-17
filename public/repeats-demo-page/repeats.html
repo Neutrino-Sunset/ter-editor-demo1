@@ -6,6 +6,7 @@
    <link rel="stylesheet" href="/assets/styles.css">
    <link rel="stylesheet" href="repeats.css">
    <script src="/assets/terh28.js"></script>
+   <script src="rtfSnippets.js"></script>
    <script src="repeats.js" defer></script>
    <script src="/assets/live.js"></script>
 </head>
@@ -18,29 +19,26 @@
    </header>
 
    <main>
-      <div class="left-column">
+      <div class="column">
          
-         <div class="example-container">
-            <p>Example 1: Ignore group not inserted.</p>
-            <textarea id="example1" value="example1rtf"></textarea>
-            <button type="button" onclick="insertRtf(example1)">Insert Data</button>
-            <button type="button" onclick="clearData()">Clear Data</button>
-         </div>
-         
-         <div class="example-container">
-            <p>Example 1: Hidden text group scope not honoured.</p>
-            <textarea id="example2" value="example2rtf"></textarea>
-            <button type="button" onclick="insertRtf(example2)">Insert Data</button>
-            <button type="button" onclick="clearData()">Clear Data</button>
+            <div class="snippet-selector">
+               <p>Select RTF: </p>
+               <select id="snippet-dropdown"></select>
+            </div>
+
+            <textarea id="snippet-view" class="snippet-view"></textarea>
+            <button type="button" onclick="openRtf()">Open Rtf</button>
+            <button type="button" onclick="insertRtf()">Insert Rtf</button>
             <button type="button" onclick="updateOutput()">Update Data</button>
-         </div>
+            <button type="button" onclick="clearData()">Clear Data</button>
+            <button type="button" onclick="selectDataField()">Select Data Field</button>
          
       </div>
 
-      <div class="right-column">
+      <div class="column">
          
-         <div id="editorContainer" class="editor-container">
-            <canvas id="editorCanvas" class="editor-canvas" tabindex=-1
+         <div id="editor-container" class="editor-container">
+            <canvas id="editor-canvas" tabindex=-1
                data-word-wrap="true" data-page-mode="true" data-print-view-mode="true" data-fitted-view="false"
                data-show-menu="true" data-show-status-bar="true" data-show-ruler="true" data-show-vert-ruler="true"
                data-show-tool-bar="true" data-border-margin="true" data-rtf-output="true" data-read-only-mode="false"
@@ -48,7 +46,10 @@
             </canvas>
          </div>
 
-         <div id="editorData" class="editor-data"></div>
+         <div class="editor-data">
+            <div id="editor-data"></div>
+         </div>
+         <!-- <textarea id="editor-data" class="editor-data" wrap="soft"></textarea> -->
       </div>
    </main>
 

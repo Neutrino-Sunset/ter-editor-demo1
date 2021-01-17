@@ -1,40 +1,87 @@
 * {
    box-sizing: border-box;
 }
-.left-column {
-   float: left;
-   width: 50%;
-   padding: 0px 10px 0px 0px;
+
+/* Colors */
+:root {
+   --color1: #557a95;
+   --color2: #7395ae;
+   --color3: #464549;
+   --color4: #379683;
+   --color5: #b1a296;
 }
-.right-column {
-   float: left;
-   width: 50%;
+body {
+   background-color: var(--color1);
 }
-.example-container {
-   padding: 0;
-   margin: 0px 0px 10px 0px;
+header, a {
+   color: var(--color5);
 }
-.example-container p {
-   margin: 0px 0px 6px 0px;
+p {
+   color: var(--color3);
 }
-.example-container textarea {
-   width: 100%;
+select {
+   color: var(--color3);
+   background-color: var(--color2);
+}
+button {
+   color: var(--color3);
+   background-color: var(--color4);
+}
+.snippet-view, .editor-data {
+   color: var(--color3);
+   background-color: var(--color2);
+}
+
+/* Elements */
+html, body {
+   height: 100%;
+}
+body {
+   margin: 0;
+   display: flex;
+   flex-direction: column;
+}
+header h1 {
+   text-align: center;
+   margin: 5px 0px;
+}
+main {
+   flex: 1 1 0;
+   display: flex;
+}
+p, select, button, textarea {
+   margin: 0px 4px 8px 8px;
+}
+p, div, textarea {
+   font-size: small;
+}
+canvas {
+   position: absolute;
+}
+
+/* Classes */
+.column {
+   flex: 1 1 0;
+   display: flex;
+   flex-direction: column;
+   /* border: 1px solid darkred; */
+   overflow: hidden; /* Needed so the child .editor-data can be scrolled. */
+}
+.snippet-selector p {
+   display: inline;
+}
+.snippet-view {
    height: 120px;
-   background-color: lightgray;
 }
 .editor-container {
-   width: 100%;
-   height: 350px;
-   margin: 0px 0px 10px 0px;
-   padding: 0;
-   border: 1px solid darkgrey;
+   flex: 1 1 0;
+   margin: 0px 8px 0px 4px;
+   /* border: 1px solid blue; */
 }
 .editor-data {
-   display: block;
-   width: 100%;
-   height: 350px;
+   flex: 1 1 0;
+   margin: 8px 8px 8px 4px;
    overflow: auto;
-   border: 1px solid darkgrey;
-   background-color: lightgray;
+   /* border: 1px solid darkgrey; */
 }
 
