@@ -7,6 +7,7 @@
    <link rel="stylesheet" href="repeats.css">
    <script src="/assets/terh28.js"></script>
    <script src="rtfSnippets.js"></script>
+   <script src="repeatService.js"></script>
    <script src="repeats.js" defer></script>
    <script src="/assets/live.js"></script>
 </head>
@@ -27,11 +28,14 @@
             </div>
 
             <textarea id="snippet-view" class="snippet-view"></textarea>
-            <button type="button" onclick="openRtf()">Open Rtf</button>
-            <button type="button" onclick="insertRtf()">Insert Rtf</button>
-            <button type="button" onclick="updateOutput()">Update Data</button>
-            <button type="button" onclick="clearData()">Clear Data</button>
-            <button type="button" onclick="selectDataField()">Select Data Field</button>
+
+            <div>
+               <button type="button" onclick="loadRtf()">Load Rtf</button>
+               <button type="button" onclick="insertRtf()">Insert Rtf</button>
+               <button type="button" onclick="updateOutput()">Update Data</button>
+               <button type="button" onclick="clearData()">Clear Data</button>
+               <button type="button" onclick="selectDataField()">Select Data Field</button>
+            </div>
          
       </div>
 
@@ -46,10 +50,9 @@
             </canvas>
          </div>
 
-         <div class="editor-data">
-            <div id="editor-data"></div>
-         </div>
-         <!-- <textarea id="editor-data" class="editor-data" wrap="soft"></textarea> -->
+         <!-- <div class="editor-data">
+            <pre id="editor-data"></pre>
+         </div> -->
       </div>
    </main>
 

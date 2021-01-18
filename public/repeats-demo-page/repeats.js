@@ -1,15 +1,12 @@
-//import { helper1 } from '../assets/repeatHelpers.js';
-//import { snippets } from './rtfSnippets.js'
-
 
 let snippetDropdown = document.getElementById('snippet-dropdown');
 let snippetView = document.getElementById('snippet-view');
 let editorContainer = document.getElementById('editor-container');
-let editorData = document.getElementById('editor-data');
+// let editorData = document.getElementById('editor-data');
 
 window.tg.ResourceUrl = '/assets';
 let editor = TerInit('editor-canvas');
-editor.TerSetEvent('Action', onEditorAction);
+let rs = new RepeatService(editor);
 
 snippets.forEach(snippet => {
    let newOption = document.createElement('option');
@@ -17,13 +14,21 @@ snippets.forEach(snippet => {
    newOption.value = snippet.value;
    snippetDropdown.appendChild(newOption);
 });
-snippetDropdown.addEventListener('change', (e) => {
+snippetDropdown.onchange = function(e) {
    console.log(e);
    snippetView.value = e.target.value;
-});
+}
 snippetView.value = snippetDropdown.value = snippets[0].value;
 
-window.onresize = function() {
+let timeoutId = 0;
+function throttle(callback, delay) {
+   if (timeoutId) {
+      window.clearTimeout(timeoutId);
+   }
+   timeoutId = window.setTimeout(callback, delay);
+};
+
+function resize() {
    let editorContainerWidth = editorContainer.clientWidth;
    let editorContainerHeight = editorContainer.clientHeight;
    let editorWidth = editor.width;
@@ -34,14 +39,20 @@ window.onresize = function() {
       editor.TerRepaint(true);
    }
 };
-window.onresize();
+window.onresize = function() {
+   throttle(resize, 50);
+};
+resize();
 
 function updateOutput() {
-   editorData.innerText = editor.GetData();
+   let rtf = editor.GetData();
+   console.log(rtf);
+   // editorData.innerText = rtf;
 }
 
-function openRtf() {
-   let toLoad = snippetView.value;
+function loadRtf() {
+   let toLoad = String.raw`{\rtf1 ${snippetView.value}}`;
+   console.log(toLoad);
    editor.SetData(toLoad);
    updateOutput();
 }
@@ -58,29 +69,7 @@ function clearData() {
 }
 
 function selectDataField() {
-   let result = editor.TerSelectField(false, false);
-   console.log('SelectDataField result: ', result);
+   rs.selectCursorField(true, true);
 }
 
-function onEditorAction(obj, actionType, actionId) {
-   if (actionType === 14) {
-      // Mouse move, do nothing
-      return;
-   }
-   
-   if (actionType === 4 || actionType === 5) {
-      // Mouse click or key press.
-      // console.log('Mouse click or button press');
-      let getFieldResult = editor.TerGetField(-1, -1, tc.FIELD_DATA);
-      console.log('getField: ' + getFieldResult);
-      if (getFieldResult !== 0) {
-         let getOutStrResult = editor.TerGetOutStr('Text');
-         console.log('getOutStr: ' + getOutStrResult);
-         editor.TerSelectField(true, true);
-      }
-      return;
-   }
-   // console.log(`onAction, actionType: ${actionType}, actionId: ${actionId}`);
-   //helper1();
-}
 
