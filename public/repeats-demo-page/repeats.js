@@ -68,8 +68,6 @@ function clearData() {
    updateOutput();
 }
 
-function selectDataField() {
-   rs.selectCursorField(true, true);
-}
+
 
 
