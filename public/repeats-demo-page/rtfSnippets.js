@@ -2,14 +2,14 @@
 snippets = [
    {
       name: 'Appointments Repeat',
-      value: String.raw`{\field{\*\fldinst MERGEFIELD Repeat1_Header}{\fldrslt [<REPEAT>AllOfficesHeld]}}\par
+      value: String.raw`{\field{\*\fldinst MERGEFIELD Repeat001_Header}{\fldrslt [<REPEAT>AllOfficesHeld]}}\par
 Name    QuickRef   Position    Appointed\par
-{\field{\*\fldinst MERGEFIELD Repeat1_Begin}{\fldrslt [<REPEAT.FROM>][<IF>Person.CHANGEINPERSON]}}
-{\field{\*\fldinst MERGEFIELD Repeat1_Column1}{\fldrslt [%Person.SORTNAME%] }}
-{\field{\*\fldinst MERGEFIELD Repeat1_Column2}{\fldrslt [%Officer.PERSONQR%] }}
-{\field{\*\fldinst MERGEFIELD Repeat1_Column3}{\fldrslt [%Officer.Position.OFFPOSNAME%] }}
-{\field{\*\fldinst MERGEFIELD Repeat1_Column4}{\fldrslt [%Officer.EVENTDATE%] }}\par
-{\field{\*\fldinst MERGEFIELD Repeat1_End}{\fldrslt [<ENDIF>][<REPEAT.AGAIN>][<REPEAT.END>]}}`
+{\field{\*\fldinst MERGEFIELD Repeat001_Begin}{\fldrslt [<REPEAT.FROM>][<IF>Person.CHANGEINPERSON]}}
+{\field{\*\fldinst MERGEFIELD Repeat001_Column1}{\fldrslt [%Person.SORTNAME%] }}
+{\field{\*\fldinst MERGEFIELD Repeat001_Column2}{\fldrslt [%Officer.PERSONQR%] }}
+{\field{\*\fldinst MERGEFIELD Repeat001_Column3}{\fldrslt [%Officer.Position.OFFPOSNAME%] }}
+{\field{\*\fldinst MERGEFIELD Repeat001_Column4}{\fldrslt [%Officer.EVENTDATE%] }}\par
+{\field{\*\fldinst MERGEFIELD Repeat001_End}{\fldrslt [<ENDIF>][<REPEAT.AGAIN>][<REPEAT.END>]}}`
    },
    {
       name: `Data field with 'ignore command' group`,
