@@ -6,6 +6,7 @@ const port = 3000;
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.json());
 
 
 /*app.get('/', (req, res) => {
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.post('/forms-testing/form1.html', (req, res) => {
   console.log(req.body);
   let form = new formidable.IncomingForm()
+  console.log(form);
   form.parse(req, (err, fields, files) => {
     for (const file of Object.entries(files)) {
       console.log(file);
