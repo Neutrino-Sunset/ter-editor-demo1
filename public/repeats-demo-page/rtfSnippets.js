@@ -4,7 +4,7 @@ snippets = [
       name: 'Appointments Repeat',
       value: String.raw`{\field{\*\fldinst MERGEFIELD Repeat001_Header}{\fldrslt [<REPEAT>AllOfficesHeld]}}\par
 Name    QuickRef   Position    Appointed\par
-{\field{\*\fldinst MERGEFIELD Repeat001_Begin}{\fldrslt [<REPEAT.FROM>][<IF>Person.CHANGEINPERSON]}}
+{\v {\field{\*\fldinst MERGEFIELD Repeat001_Begin}{\fldrslt [<REPEAT.FROM>][<IF>Person.CHANGEINPERSON]}}}
 {\field{\*\fldinst MERGEFIELD Repeat001_Column1}{\fldrslt [%Person.SORTNAME%] }}
 {\field{\*\fldinst MERGEFIELD Repeat001_Column2}{\fldrslt [%Officer.PERSONQR%] }}
 {\field{\*\fldinst MERGEFIELD Repeat001_Column3}{\fldrslt [%Officer.Position.OFFPOSNAME%] }}

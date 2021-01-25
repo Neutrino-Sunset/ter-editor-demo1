@@ -2,8 +2,11 @@
 let _repeatService;
 
 class RepeatService {
+
+   #logEnabled = true;
+
    constructor(rtfEditor) {
-      console.log('creating RepeatService');
+      this.log('creating RepeatService');
       _repeatService = this;
       this._cursorFieldId = 0;
       this._cursorFieldName = '';
@@ -29,76 +32,77 @@ class RepeatService {
    selectFieldAtCursor(selectData, repaint) {
       if (this.isCursorInField) {
          let result = this._rtfEditor.TerSelectField(selectData, repaint);
-         console.log('TerSelectField result: ', result);
+         this.log('TerSelectField result: ', result);
       }
    }
 
    getSelectionCoords() {
-      console.log('RepeatService.getSelectionCoords');
+      this.log('RepeatService.getSelectionCoords');
       let result = this._rtfEditor.TerGetSelection();
       if (result) {
          let begLine = this._rtfEditor.TerGetOutInt('BegLine');
          let begCol = this._rtfEditor.TerGetOutInt('BegCol');
          let endLine = this._rtfEditor.TerGetOutInt('EndLine');
          let endCol = this._rtfEditor.TerGetOutInt('EndCol');
-         console.log(`begLine: ${begLine}, begCol: ${begCol}, endLine: ${endLine}, endCol: ${endCol}`);
+         this.log(`begLine: ${begLine}, begCol: ${begCol}, endLine: ${endLine}, endCol: ${endCol}`);
          let selStart = this._rtfEditor.TerRowColToAbs(begLine, begCol);
          let selEnd = this._rtfEditor.TerRowColToAbs(endLine, endCol);
-         console.log(`selection - start: ${selStart}, end: ${selEnd}`);
+         this.log(`selection - start: ${selStart}, end: ${selEnd}`);
          return { selStart, selEnd };
       } else {
-         console.log(`TerGetSelection failed, result: ${result}`);
+         this.log(`TerGetSelection failed, result: ${result}`);
       }
    }
 
    selectRepeatAtCursor() {
-      console.log('RepeatService.selectRepeatAtCursor');
+      this.log('RepeatService.selectRepeatAtCursor');
 
       if (!this.isCursorInRepeatField) {
-         console.log('repeat field not selected')
+         this.log('repeat field not selected')
          return;
       }
 
       if (!/Repeat\d{3}_Header/.test(this._cursorFieldName)) {
-         console.log('not a repeat header');
+         this.log('not a repeat header');
          return;
       }
 
       // TODO select repeat header and remember start position.
       this.selectFieldAtCursor(true, false);
       let selection = this.getSelectionCoords();
-      console.log(selection);
+      this.log(selection);
       let repeatStart = selection.selStart;
       let repeatEnd;
 
       let repeatFieldId = 'Repeat' + this._cursorFieldRepeatId + '_';
-      console.log(`searching for next repeat field named '${repeatFieldId}'`);
+      this.log(`searching for next repeat field named '${repeatFieldId}'`);
 
       while (this._rtfEditor.TerLocateField(tc.TER_NEXT, repeatFieldId, false, false))
       {
          this.updateFieldInfo();
-         console.log(`repeat field located - name: ${this._cursorFieldName}`);
+         this.log(`repeat field located - name: ${this._cursorFieldName}`);
          this.selectFieldAtCursor(true, false);
          selection = this.getSelectionCoords();
-         console.log(`repeat field coords - start: ${selection.selStart}, end: ${selection.selEnd}`);
+         this.log(`repeat field coords - start: ${selection.selStart}, end: ${selection.selEnd}`);
          repeatEnd = selection.selEnd;
       }
 
-      console.log(`repeat coords - start: ${repeatStart}, end: ${repeatEnd}`);
+      this.log(`repeat coords - start: ${repeatStart}, end: ${repeatEnd}`);
 
       this.selectText(repeatStart, repeatEnd, true);
 
-      // console.log(`TerLocateField result: ${result}`);
+      // this.log(`TerLocateField result: ${result}`);
       // this.updateFieldInfo();
    }
-   
-   getRepeatRtf() {
-      
+
+   deleteRepeatAtCursor() {
+      this.selectRepeatAtCursor();
+      this._rtfEditor.TerDeleteBlock(true);
    }
    
    getSelectionRtf() {
       let rtf = this._rtfEditor.TerGetRtfSel();
-      console.log(rtf);      
+      this.log(rtf);      
    }
 
    getCursorPos() {
@@ -106,7 +110,7 @@ class RepeatService {
       if (this._rtfEditor.GetTerCursorPos(-1)) {
          cursorPos = this._rtfEditor.TerGetOutInt("Line");
       }
-      console.log('cursorPos: ' + cursorPos);
+      this.log('cursorPos: ' + cursorPos);
       return cursorPos;
    }
 
@@ -136,7 +140,7 @@ class RepeatService {
          this._rtfEditor.TerGetField(-1, -1, tc.FIELD_DATA)
          this._cursorFieldData = this._rtfEditor.TerGetOutStr('Text');
       }
-      console.log('RepeatService.updateFieldInfo - _cursorFieldId: ' + this._cursorFieldId +
+      this.log('RepeatService.updateFieldInfo - _cursorFieldId: ' + this._cursorFieldId +
          ', _cursorFieldName: ' + this._cursorFieldName +
          ', _cursorFieldRepeatId: ' + this._cursorFieldRepeatId +
          ', _cursorFieldData: ' + this._cursorFieldData);
@@ -152,6 +156,12 @@ class RepeatService {
       }
       return repeatIdStr;
    }
+
+   log(...args) {
+      if (this.#logEnabled) {
+         console.log(...args);
+      }
+   }
    
    onEditorAction(obj, actionType, actionId) {   
       if (actionType === 14) {
@@ -161,6 +171,10 @@ class RepeatService {
    
       if (actionType === 4 || actionType === 5) {
          this.updateFieldInfo();
+
+         if (this.isCursorInRepeatField) {
+            this.selectFieldAtCursor(true, true);
+         }
          return;
       }
    }

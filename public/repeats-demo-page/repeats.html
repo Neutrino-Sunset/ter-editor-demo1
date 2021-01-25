@@ -29,15 +29,24 @@
 
             <textarea id="snippet-view" class="snippet-view"></textarea>
 
+            <p>High Level Operations</p>
+
+            <div>
+               <button type="button" onclick="insertRtf()">Insert Rtf</button>
+               <button type="button" onclick="rs.deleteRepeatAtCursor()">Delete Repeat</button>
+            </div>
+
+            <p>Low Level Operations</p>
+
             <div>
                <button type="button" onclick="loadRtf()">Load Rtf</button>
-               <button type="button" onclick="insertRtf()">Insert Rtf</button>
                <button type="button" onclick="updateOutput()">Update Data</button>
                <button type="button" onclick="clearData()">Clear Data</button>
                <button type="button" onclick="rs.getCursorPos()">Get Cursor Pos</button>
                <button type="button" onclick="rs.getSelectionCoords()">Get Selection Coords</button>
                <button type="button" onclick="rs.selectFieldAtCursor(true, true)">Select Field At Cursor</button>
                <button type="button" onclick="rs.selectRepeatAtCursor()">Select Repeat At Cursor</button>
+               <button type="button" onclick="rs.getSelectionRtf()">Get selection RTF</button>
             </div>
          
       </div>
